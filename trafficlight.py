@@ -1,10 +1,19 @@
+#Команда 5
+'''
+Андросов Петр
+Тарасов Егор
+Тришина Яна
+Рыжков Владислав
+'''
 from termcolor import colored  # changed
 import os  # changed
+from time import sleep
 
 
 class Section:
     def __init__(self):
-        self.color = str(input())
+        color = str(input())
+        self.color = color.lower()
         self.state = False
 
     def change_state(self, state):
@@ -39,7 +48,6 @@ class StateChanger:
 
     def state_by_time(self, time):
         time = time % 6
-
         return self.get_lower_or_equal_element(time)
 
 
@@ -91,6 +99,7 @@ if __name__ == '__main__':
     traffic = TrafficLight(sections, time)
     while True:
         traffic.set_state()
+        os.system('cls' if os.name == 'nt' else 'clear')
         traffic.draw()
         traffic.add_time()
-        input()
+        sleep(0.35)
