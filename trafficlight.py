@@ -34,12 +34,11 @@ class StateChanger:
         i = 0
         while k > self.data[i][1] and i < len(self.data):
             i += 1
-        # return self.data[i][0]
         return i
 
     def state_by_time(self, time):
         time = time % 6
-        print(self.get_lower_or_equal_element(time))
+
         return self.get_lower_or_equal_element(time)
 
 
@@ -53,8 +52,11 @@ class TrafficLight:
 
     def set_state(self):
         # self.state = StateChanger.state_by_time(self.time)
-        self.sections[StateChanger.state_by_time(self.time)].change_state(True)
-        print(StateChanger.state_by_time(self.time))
+        st = StateChanger()
+        time = self.time
+        self.sections[st.state_by_time(time)].change_state(True)
+
+        print('111')
 
     def past_time(self, time):
         self.time += time
@@ -78,5 +80,5 @@ class TrafficLight:
 
 if __name__ == '__main__':
     traffic = TrafficLight(3, 3)
-
+    traffic.set_state()
     traffic.draw()
