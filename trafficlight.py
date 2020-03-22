@@ -32,7 +32,8 @@ class StateChanger:
 
     def get_lower_or_equal_element(self, k):
         i = 0
-        while k > self.data[i][1] and i < len(self.data):
+        while k > self.data[i][1] and i < len(self.data) - 1:
+            print(i)
             i += 1
         return i
 
@@ -47,16 +48,20 @@ class TrafficLight:
         self.sections = list()
         self.time = time
         for i in range(n):
+            print('Введите цвет для секции ' + str(i + 1))
             new_section = Section()
             self.sections.append(new_section)
 
+    def add_time(self):
+        self.time += 1
+
     def set_state(self):
         # self.state = StateChanger.state_by_time(self.time)
+        for i in self.sections:
+            i.change_state(False)
         st = StateChanger()
         time = self.time
         self.sections[st.state_by_time(time)].change_state(True)
-
-        print('111')
 
     def past_time(self, time):
         self.time += time
@@ -66,7 +71,7 @@ class TrafficLight:
         return [1, 0, 0], [0, 1, 0]
 
     def draw(self):  # changed
-        ##os.system('cls' if os.name == 'nt' else 'clear')
+        os.system('cls' if os.name == 'nt' else 'clear')
         print(' ---------')
         for section in self.sections:
             section.section_draw()
@@ -79,6 +84,13 @@ class TrafficLight:
 
 
 if __name__ == '__main__':
-    traffic = TrafficLight(3, 3)
-    traffic.set_state()
-    traffic.draw()
+    print('Введите время:')
+    time = int(input())
+    print('\n Введите количество секций')
+    sections = int(input())
+    traffic = TrafficLight(sections, time)
+    while True:
+        traffic.set_state()
+        traffic.draw()
+        traffic.add_time()
+        input()
